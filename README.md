@@ -1,2 +1,1 @@
-# code-quiz
-NU Coding Bootcamp: Challenge 4
+# Code Quiz
