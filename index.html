@@ -11,21 +11,95 @@
 </head>
 
 <body>
-    <!-- <img class="bg-img" src="./images/BackgroundImage.jpg" alt="The cast of Hackers looking directly at the camera."> -->
-    <!-- Title -->
-    <h1>Willy B's Coding Quiz</h1>
-    <!--Paragraph About Game-->
-    <p>Here you go. Will fill this out.</p>
-    <!--Start Button-->
-    <button id="startQuiz">Test Your Knowledge</button>
-    <!--Questions Attached Here-->
-    <div id="questions">
-        <h2 class="question"></h2>
-        <div class="btnGrid">
+    <!-- Score & Timer -->
+    <header>
+        <div class="header">
+            <!--left corner to view high score-->
+            <div>
+                <button class="button" id="score-check">View Highscores</button>
+            </div>
+            <!--right corner to set a timer-->
+            <div>
+                <p id="timer"> Time left: 60 s</p>
+            </div>
         </div>
-    </div>
-    <script src="./assets/js/questions.js"></script>
+    </header>
+    <main>
+        <div>
+            <!-- Introduction -->
+            <section class="welcome-page" id="welcome-page">
+                <div id="welcome">
+                    <h1>Willy B's Coding Quiz</h1>
+                    <!--Paragraph About Game-->
+                    <p id="instructions">Here you go. Will fill this out.</p>
+                    <!--Start Button-->
+                    <button class="btn" id="btnStart">Test Your Knowledge</button>
+                </div>
+            </section>
+            <!-- Questions -->
+            <section class="qstnr" id="qstnr-page">
+                <div>
+                    <!--Questions Attached Here-->
+                    <div>
+                        <h2 id="questions"></h2>
+                        <div>
+                            <button class="btn-choices" id="btn-one" value="a">Answer 1</button>
+                            <button class="btn-choices" id="btn-two" value="b">Answer 2</button>
+                            <button class="btn-choices" id="btn-three" value="c">Answer 3</button>
+                            <button class="btn-choices" id="btn-four" value="d">Answer 4</button>
+                        </div>
+                    </div>
+                    <!--Confirm Y/N Message-->
+                    <div id="check-line">
+                        <p>Don't f*** it up!</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Game Over -->
+            <section class="submit" id="submit-page">
+                <div>
+                    <div>
+                        <h2 id="finish">All Done</h2>
+                        <p id="final-score">Your final score is: </p>
+                        <p>Enter initials
+                            <input id="initial">
+                            <button class="button" id="submit-btn">Submit</button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!-- Leaderboard -->
+            <section class="ldrbrd" id="ldrbrd-page">
+                <div>
+                    <div>
+                        <h2>Leaderboard</h2>
+                        <div id="score-record">
+                            <p>Your record</p>
+                        </div><br><br>
+                        <div>
+                            <button class="button" id="back-btn">Go back</button>
+                            <button class="button" id="clear-btn">Clear Highscores</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
     <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
+
+<!-- CONTENT REPOSITORY -->
+
+<!-- controller, manipulating the view and responding to events
+    the model, populates the view
+the view, "mvc" 
+
+pages: "views" we need to create
+welcome page--click to get started
+questionnaire page--
+info entry page--
+leaderboard
+
+-->

@@ -1,28 +1,24 @@
-/* .bg-img {
-    /* Set rules to fill background */
-/* min-height: 100%; */
-/* min-width: 1024px; */
+/* //classes// */
+.hidden {
+    display: none;
+}
 
-/* Set up proportionate scaling */
-/* width: 100%;
-    height: auto;
 
-    /* Set up positioning */
-/* position: fixed;
-    top: 0;
-    left: 0; */
+/* ids */
 
-/* Opacity */
-/* opacity: 50%; */
+#welcome-page{
+    
+}
 
-/* } */
+#qstnr-page{
+    
+}
 
-/* @media screen and (max-width: 1024px) { */
+#submit-page{
 
-/* Specific to this particular image */
-/* .bg-img {
-        left: 50%;
-        margin-left: -512px; */
-/* 50% */
-/* } */
-/* }
+}
+
+#ldrbrd-page{
+
+}
+
