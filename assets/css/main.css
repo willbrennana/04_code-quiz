@@ -1,24 +1,45 @@
-/* //classes// */
+/* ELEMENTS */
+body {
+    text-align: center;
+    padding-top: 20%;
+    background-color: #20FC8F;
+}
+
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    font-family: millikregular;
+}
+
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+/* CLASSES */
+
+.btn-choices {
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
 .hidden {
     display: none;
 }
 
+/* IDS */
 
-/* ids */
-
-#welcome-page{
-    
+#score-check {
+    background-color: black;
+    color: white;
+    padding: 5px;
 }
 
-#qstnr-page{
-    
+#score-record {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
-#submit-page{
-
-}
-
-#ldrbrd-page{
-
-}
-

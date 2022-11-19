@@ -11,16 +11,12 @@
 </head>
 
 <body>
-    <!-- Score & Timer -->
+    <!-- Timer -->
     <header>
         <div class="header">
-            <!--left corner to view high score-->
+            <!--Timer-->
             <div>
-                <button class="button" id="score-check">Leaderboard</button>
-            </div>
-            <!--right corner to set a timer-->
-            <div>
-                <p id="timer"> 60 seconds</p>
+                <p id="timer">⏳ TIMER STARTS HERE ⌛️</p>
             </div>
         </div>
     </header>
@@ -29,11 +25,14 @@
             <!-- Introduction -->
             <section class="welcome-page" id="welcome-page">
                 <div id="welcome">
-                    <h1>Willy B's Coding Quiz</h1>
+                    <h1>Willy B's JavaScript Quiz</h1>
                     <!--Paragraph About Game-->
                     <p id="instructions">Here you go. Will fill this out.</p>
                     <!--Start Button-->
-                    <button class="btn" id="btnStart">Test Your Knowledge</button>
+                    <button class="button" id="btnStart">Test Your Knowledge</button>
+                </div>
+                <div>
+                    <button class="button" id="score-check">Leaderboard</button>
                 </div>
             </section>
             <!-- Questions -->
@@ -43,10 +42,10 @@
                     <div>
                         <h2 id="questions"></h2>
                         <div>
-                            <button class="btn-choices" id="btn-one" value="a">Answer 1</button>
-                            <button class="btn-choices" id="btn-two" value="b">Answer 2</button>
-                            <button class="btn-choices" id="btn-three" value="c">Answer 3</button>
-                            <button class="btn-choices" id="btn-four" value="d">Answer 4</button>
+                            <button class="btn-choices" id="btn-one" value="a">Answer 1</button><br>
+                            <button class="btn-choices" id="btn-two" value="b">Answer 2</button><br>
+                            <button class="btn-choices" id="btn-three" value="c">Answer 3</button><br>
+                            <button class="btn-choices" id="btn-four" value="d">Answer 4</button><br>
                         </div>
                     </div>
                     <!--Confirm Y/N Message-->
@@ -61,7 +60,8 @@
                     <div>
                         <h2 id="finish">Thanks for playing</h2>
                         <p id="final-score">Your final score is: </p>
-                        <p>Enter initials
+                        <p>Enter your initials below and submit your score to the Leaderboard.</p>
+                        <p>Enter initials:
                             <input id="initial">
                             <button class="button" id="submit-btn">Submit</button>
                         </p>
@@ -72,13 +72,13 @@
             <section class="ldrbrd hidden" id="ldrbrd-page">
                 <div>
                     <div>
-                        <h2>Leaderboard</h2>
+                        <h2>🏆 LEADERBOARD 🏆</h2>
                         <div id="score-record">
-                            <p>Check out the latest scores and see where you stand:</p>
+                            <p>Check out the latest scores and see where you stand.</p>
                         </div><br><br>
                         <div>
                             <button class="button" id="back-btn">Home</button>
-                            <button class="button" id="clear-btn">Clear Leaberboard</button>
+                            <button class="button" id="clear-btn">Clear The Board</button>
                         </div>
                     </div>
                 </div>

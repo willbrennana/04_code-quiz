@@ -65,7 +65,7 @@ let qstnrQuestions = [
 function countdown() {
   let timeInterval = setInterval(function () {
     secondsLeft--;
-    timer.textContent = `${secondsLeft} seconds remaining`;
+    timer.textContent = `${secondsLeft} SECONDS`;
 
     if (secondsLeft === 0) {
       clearInterval(timeInterval);
@@ -97,7 +97,7 @@ function populateQuestions(n) {
   questionCurrent = n;
 }
 
-//Confirm answer
+//Confirm answer + proceed to next question
 function checkAnswer(event) {
   event.preventDefault();
   //Display confirmation message
@@ -106,19 +106,20 @@ function checkAnswer(event) {
     checkLine.style.display = "none";
   }, 1000);
 
-  //Answer confirmation message
+  //Answer confirmation message + timer adjustment
   if (qstnrQuestions[questionCurrent].answer === event.target.value) {
-    checkLine.textContent = "Correct ✅";
+    checkLine.textContent = "CORRECT ✅";
     totalScore = totalScore + 1;
   } else {
-    checkLine.textContent = "Incorrect 🌱";
+    checkLine.textContent = "NOT QUITE 🌱";
+    timer.textContent = "⬇️ -10 SECONDS ⬇️";
     secondsLeft = secondsLeft - 10;
     totalScore = totalScore;
   }
 
   //Next question
   if (questionCurrent < qstnrQuestions.length - 1) {
-    // Pull in next
+    // Pull in and display next question
     populateQuestions(questionCurrent + 1);
   } else {
     gameOver();
@@ -149,11 +150,6 @@ function getScore() {
   return freshList;
 }
 
-function displayMessage() {
-  scoreRecord.textContent =
-    "Fresh board. Fresh slate. Play again to make your mark.";
-}
-
 //Render score to leaderboard
 function renderScore() {
   scoreRecord.innerHTML = "";
@@ -175,7 +171,7 @@ function renderScore() {
 //Sort score within leaderboard
 function sort() {
   let unsortedList = getScore();
-  if (getScore == null) {
+  if (getScore === null) {
     return;
   } else {
     unsortedList.sort(function (a, b) {
@@ -192,6 +188,7 @@ function addItem(n) {
   localStorage.setItem("ScoreList", JSON.stringify(addedList));
 }
 
+//Save user initials and score
 function saveScore() {
   let scoreItem = {
     user: userInitial.value,
@@ -199,6 +196,12 @@ function saveScore() {
   };
   addItem(scoreItem);
   renderScore();
+}
+
+//Display message after clearing Leaderboard
+function displayMessage() {
+  scoreRecord.textContent =
+    "Fresh board. Fresh slate. Play again to make your mark.";
 }
 
 // CALL FUNCTIONS USING EVENT LISTENERS //
@@ -225,12 +228,12 @@ submitBtn.addEventListener("click", function (event) {
   location.reload();
 });
 
-// Click to submit information and return to welcome page.
-
-// Click to view high scores
+// Click to view high scores on leaderboard
 
 scoreCheck.addEventListener("click", function () {
   ldrbrdPage.classList.remove("hidden");
+  timer.style.display = "none";
+  qstnrPage.style.display = "none";
   welcomePage.style.display = "none";
   scores.forEach((score) => {
     scoreRecord.innerHTML += `${score.user}: ${score.score}<br>`;
@@ -248,7 +251,8 @@ backBtn.addEventListener("click", function (event) {
   location.reload();
 });
 
-// CLick to clear local storage and clear page shows
+// CLick to clear local storage and clear leaderboard
+
 clearBtn.addEventListener("click", function (event) {
   event.preventDefault();
   localStorage.clear();
