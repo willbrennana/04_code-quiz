@@ -236,7 +236,7 @@ scoreCheck.addEventListener("click", function () {
   qstnrPage.style.display = "none";
   welcomePage.style.display = "none";
   scores.forEach((score) => {
-    scoreRecord.innerHTML += `${score.user}: ${score.score}<br>`;
+    scoreRecord.innerHTML += `${score.user}: ${score.score}/4<br>`;
   });
 });
 
