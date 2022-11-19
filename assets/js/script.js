@@ -14,9 +14,10 @@ const btnFour = document.getElementById("btn-four");
 let checkLine = document.querySelector("#check-line");
 
 let scoreBoard = document.querySelector("#submit-page");
-var finalScore = document.querySelector("#final-score");
+let finalScore = document.querySelector("#final-score");
 let userInitial = document.querySelector("#initial");
 let submitBtn = document.querySelector("#submit-btn");
+let submitPage = document.querySelector("#submit-page");
 
 let ldrbrdPage = document.querySelector("#ldrbrd-page");
 let scoreRecord = document.querySelector("#score-record");
@@ -26,7 +27,7 @@ let finish = document.querySelector("#finish");
 let backBtn = document.querySelector("#back-btn");
 let clearBtn = document.querySelector("#clear-btn");
 
-let timeLeft = document.getElementById("timer");
+let timer = document.getElementById("timer");
 let secondsLeft = 60;
 let questionCurrent = 0;
 let totalScore = 0;
@@ -60,11 +61,29 @@ let qstnrQuestions = [
 
 // FUNCTIONS TO ASSIGN ACTIONS TO ELEMENTS
 
+//Start a timer
+function countdown() {
+  let timeInterval = setInterval(function () {
+    secondsLeft--;
+    timer.textContent = `${secondsLeft} seconds remaining`;
+
+    if (secondsLeft === 0) {
+      clearInterval(timeInterval);
+      timer.textContent = "Time is up!";
+      gameOver();
+    } else if (questionCount >= qstnrQuestions.length + 1) {
+      clearInterval(timeInterval);
+      gameOver();
+    }
+  }, 1000);
+}
+
 //Start quiz
 function startQuiz() {
   welcomePage.style.display = "none";
   qstnrPage.style.display = "block";
   questionCurrent = 0;
+  countdown();
   populateQuestions(questionCurrent);
 }
 
@@ -92,13 +111,14 @@ function checkAnswer(event) {
     checkLine.textContent = "Correct ✅";
     totalScore = totalScore + 1;
   } else {
-    secondsLeft = secondsLeft - 10;
     checkLine.textContent = "Incorrect 🌱";
+    secondsLeft = secondsLeft - 10;
     totalScore = totalScore;
   }
+
   //Next question
   if (questionCurrent < qstnrQuestions.length - 1) {
-    // Call populateQuestions to bring in next question when any reactBtn is clicked
+    // Pull in next
     populateQuestions(questionCurrent + 1);
   } else {
     gameOver();
@@ -108,13 +128,13 @@ function checkAnswer(event) {
 
 //Game over
 function gameOver() {
+  scoreBoard.classList.remove("hidden");
   qstnrPage.style.display = "none";
-  scoreBoard.style.display = "block";
-  console.log(scoreBoard);
-  // show final score
-  finalScore.textContent = "Your final score is :" + totalScore;
-  // clearInterval(timerInterval);
-  timeLeft.style.display = "none";
+  // Show final score
+  finalScore.textContent =
+    "Nice work! Your final score is a " + totalScore + "/4.";
+  // Clear Interval(timerInterval);
+  timer.style.display = "none";
 }
 
 //Get current score and initials from local storage
@@ -129,26 +149,32 @@ function getScore() {
   return freshList;
 }
 
+function displayMessage() {
+  scoreRecord.textContent =
+    "Fresh board. Fresh slate. Play again to make your mark.";
+}
+
 //Render score to leaderboard
 function renderScore() {
   scoreRecord.innerHTML = "";
   scoreRecord.style.display = "block";
-  var highScores = sort();
+  let highScores = sort();
   // Slice the high score array to only show the top five high scores.
-  var topFive = highScores.slice(0, 5);
-  for (var i = 0; i < topFive.length; i++) {
-    var item = topFive[i];
+  let topFive = highScores.slice(0, 5);
+  for (let i = 0; i < topFive.length; i++) {
+    let item = topFive[i];
     // Show the score list on score board
-    var li = document.createElement("li");
+    let li = document.createElement("li");
     li.textContent = item.user + " - " + item.score;
     li.setAttribute("data-index", i);
     scoreRecord.appendChild(li);
+    displayMessage();
   }
 }
 
 //Sort score within leaderboard
 function sort() {
-  var unsortedList = getScore();
+  let unsortedList = getScore();
   if (getScore == null) {
     return;
   } else {
@@ -159,15 +185,15 @@ function sort() {
   }
 }
 
-//Push score and initials to local storage
+//Stringify and push score and initials to local storage
 function addItem(n) {
-  var addedList = getScore();
+  let addedList = getScore();
   addedList.push(n);
   localStorage.setItem("ScoreList", JSON.stringify(addedList));
 }
 
 function saveScore() {
-  var scoreItem = {
+  let scoreItem = {
     user: userInitial.value,
     score: totalScore,
   };
@@ -192,132 +218,39 @@ reactButtons.forEach(function (click) {
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   scoreBoard.style.display = "none";
-  welcomePage.style.display = "none";
   ldrbrdPage.style.display = "none";
-  qstnrPage.style.display = "block";
+  qstnrPage.style.display = "none";
+  welcomePage.style.display = "block";
   saveScore();
+  location.reload();
 });
 
-// Check high score
+// Click to submit information and return to welcome page.
+
+// Click to view high scores
 
 scoreCheck.addEventListener("click", function () {
+  ldrbrdPage.classList.remove("hidden");
+  welcomePage.style.display = "none";
   scores.forEach((score) => {
     scoreRecord.innerHTML += `${score.user}: ${score.score}<br>`;
   });
 });
 
-// REPOSITORY //
+// Click to go back to welcome page
 
-// const btnGrid = document.querySelector(".btnGrid");
-// const btnNext = document.querySelector("#btnNext");
+backBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  scoreBoard.style.display = "none";
+  ldrbrdPage.style.display = "none";
+  qstnrPage.style.display = "none";
+  welcomePage.style.display = "block";
+  location.reload();
+});
 
-// const gameoverPage = document.getElementById("gameover-page");
-
-// const ldrbrdPage = document.getElementById("ldrbrd-page");
-
-// let index = 0;
-// let title = document.querySelector(".question");
-
-// let score = 0;
-// let highscore = localStorage.getItem("highscore");
-// let currentQuestion = 0;
-
-// let scores = JSON.parse(localStorage.getItem("scores")) || [];
-
-// questionDiv.addEventListener("click", function (event) {
-//   let choice = event.target.innerHTML;
-//   let answer = event.target.dataset.answer;
-
-//   if (choice === answer) {
-//     alert("correct");
-//     questionsIndex++;
-//     if (questionsIndex > questions.length - 1) {
-//       endGame();
-//     } else {
-//       createButton(questionsIndex);
-//     }
-//     localStorage.setItem("correct answer", choice);
-//   } else {
-//     alert("incorrect");
-//     localStorage.setItem("incorrect answer", choice);
-//   }
-// });
-
-// btnNext.addEventListener("click", function () {
-//   removeHiddenAndHighlight();
-//   currentQuestion++;
-//   updateValues();
-// });
-
-// btnNext.addEventListener("click", function () {
-//   if (currentQuestion === 4) {
-//     btnNext.classList.add("hidden");
-//     btnFinish.classList.remove("hidden");
-//   }
-// });
-
-// function updateValues() {
-//   currentQuestion.textContent = questions[currentQuestion].question;
-//   choice1;
-// }
-
-//   // Display Question
-//   //   let title = document.createElement("h2");
-//   title.textContent = quizQuestions[index].question;
-//   questionDiv.appendChild(title);
-
-//   // 4 Answer Options
-//   let btnOne = document.createElement("button");
-//   btnOne.textContent = quizQuestions[index].opt1;
-//   btnOne.setAttribute("value", quizQuestions[index].opt1);
-//   btnOne.setAttribute("data-answer", quizQuestions[index].correct);
-//   //   questionDiv.appendChild(btnOne);
-
-//   let btnTwo = document.createElement("button");
-//   btnTwo.textContent = quizQuestions[index].opt2;
-//   //   btnTwo.setAttribute("value", quizQuestions[index].opt2);
-//   //   questionDiv.appendChild(btnTwo);
-
-//   let btnThree = document.createElement("button");
-//   btnThree.textContent = quizQuestions[index].opt3;
-//   //   btnThree.setAttribute("value", quizQuestions[index].opt3);
-//   //   questionDiv.appendChild(btnThree);
-
-//   let btnFour = document.createElement("button");
-//   btnFour.textContent = quizQuestions[index].opt4;
-//   //   btnFour.setAttribute("value", quizQuestions[index].opt4);
-//   //   questionDiv.appendChild(btnFour);
-
-//   btnGrid.append[(btnOne, btnTwo, btnThree, btnFour)];
-//   questionDiv.append(btnGrid);
-
-//   // Clickability with Event listener
-
-//   btnGrid.addEventListener("click", (event) => {
-//     let btnClick = event.target.value;
-//     console.log(btnClick);
-//   });
-
-// function createQuestion(index) {
-//   let title = document.createElement("h2");
-//   title.textContent = questions[index].title;
-//   questionDiv.appendChild(title);
-//   questions[index].choices.forEach((choice) => {
-//     let buttonOne = document.createElement("button");
-//     buttonOne.textContent = choice;
-//     buttonOne.dataset.answer = questions[index].answer;
-//     questionDiv.appendChild(buttonOne);
-//   });
-// }
-
-// function createButton(index) {}
-
-// function endGame() {
-//   let heading = document.createElement("h1");
-//   heading.innerHTML = "Game Over";
-//   questionDiv.appendChild(heading);
-//   console.log(time);
-//   score = time;
-//   clearInterval(time);
-//   console.log(score);
-// }
+// CLick to clear local storage and clear page shows
+clearBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  localStorage.clear();
+  displayMessage();
+});
