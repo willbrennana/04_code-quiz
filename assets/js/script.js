@@ -38,23 +38,24 @@ let scores = JSON.parse(localStorage.getItem("ScoreList")) || [];
 
 let qstnrQuestions = [
   {
-    question: "Question 1",
-    choices: ["a", "b", "c", "d"],
+    question:
+      "If the weight of digit “1” equals 8, 4 or 5, what could “1+1” equal?",
+    choices: ["10", "21", "17", "14"],
     answer: "a",
   },
   {
-    question: "Question 2",
-    choices: ["a", "b", "c", "d"],
+    question: "To create a value, you must merely ______ for one.",
+    choices: ["get", "call", "pull", "look"],
     answer: "b",
   },
   {
-    question: "Question 3",
-    choices: ["a", "b", "c", "d"],
+    question: "All of the below are types of JavaScript values except:",
+    choices: ["Booleans", "Undefined Values", "Operators", "Numbers"],
     answer: "c",
   },
   {
-    question: "Question 4",
-    choices: ["a", "b", "c", "d"],
+    question: "What differentiates “==“ from “===“?",
+    choices: ["Precision", "Automation", "Conversion", "All of the above"],
     answer: "d",
   },
 ];
